@@ -6,8 +6,6 @@ import { Card, Container } from 'react-bootstrap';
 class BookComments extends React.Component {
     componentDidUpdate(prevProps) {
         if (prevProps.bookId !== this.props.bookId) {
-            // Codice da eseguire quando l'ID del libro cambia
-            // Questo potrebbe includere il caricamento di nuovi commenti o altre azioni necessarie
             console.log("ID del libro aggiornato:", this.props.bookId);
         }
     }
