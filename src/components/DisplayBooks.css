@@ -1,0 +1,57 @@
+body {
+    background-color: beige;
+}
+
+h1 {
+    font-size: 3rem;
+    text-transform: uppercase;
+    background-color: #800000;
+    margin: 2rem;
+    color: rgb(222, 209, 209);
+}
+
+.card {
+    border: 2px solid #800000;
+    width: auto;
+
+    img {
+        height: 40vh;
+    }
+}
+
+.card-body,
+.list-group-item {
+    background-color: #800000;
+    color: white;
+    text-transform: capitalize;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+    text-transform: uppercase;
+}
+
+.carousel-indicators {
+    display: none !important;
+}
+
+.selected-book {
+    opacity: 80%
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: black;
+}
+
+@media screen and (min-width: 650) {
+    .carousel-control-prev {
+        left: -8rem;
+    }
+
+    .carousel-control-next {
+        right: -8rem;
+
+    }
+}
