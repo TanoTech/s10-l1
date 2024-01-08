@@ -1,5 +1,6 @@
-import React from 'react';
-import axios from 'axios';
+import React from 'react'
+import { Button, Form } from 'react-bootstrap'
+import './DisplayBooks.css'
 
 class PostComment extends React.Component {
     state = {
@@ -8,66 +9,100 @@ class PostComment extends React.Component {
             rate: 1,
             elementId: this.props.asin,
         },
-    };
+    }
+
 
     componentDidUpdate(prevProps) {
-        if (prevProps.asin !== this.props.asin) {
-            this.setState(prevState => ({
+        if (this.props.asin !== prevProps.asin) {
+            this.setState({
                 comment: {
-                    ...prevState.comment,
-                    elementId: this.props.asin
-                }
-            }));
+                    ...this.state.comment,
+                    elementId: this.props.asin,
+                },
+            });
         }
     }
 
-    handleSubmit = async (e) => {
-        e.preventDefault();
-        const tokenAPI = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTg0NWE4NWI1MjViYjAwMThlZDA4OTIiLCJpYXQiOjE3MDMxNzI3NDEsImV4cCI6MTcwNDM4MjM0MX0.MqyGj9rVA73xnyHt6rWKry33R2TRIinH6ycjbB6NUUE'
-    
+
+    sendComment = async (e) => {
+        const tokenAPI = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTliZmI0M2UwZGQxZDAwMTgyZDE3NWIiLCJpYXQiOjE3MDQ3MjEyMjAsImV4cCI6MTcwNTkzMDgyMH0.s5rqSKWOIz6A5AuFwCS3c0KwCT7UVpkD84qzWWQHjKk'
+        e.preventDefault()
         try {
-            const response = await axios.post(`https://striveschool-api.herokuapp.com/api/book/${this.state.comment.elementId}/comments/`
-            , {
-                headers: {
-                    "Content-Type": "application/json",
-                    'Authorization': `Bearer ${tokenAPI}`
+            let response = await fetch(
+                'https://striveschool-api.herokuapp.com/api/comments',
+                {
+                    method: 'POST',
+                    body: JSON.stringify(this.state.comment),
+                    headers: {
+                        'Content-type': 'application/json',
+                        Authorization: `Bearer ${tokenAPI} `
+                    },
                 }
-            });
-    
-            this.setState({
-                comment: { comment: '', rate: 1, elementId: this.props.asin },
-                feedback: 'Commento inviato con successo!'
-            });
-        } catch (error) {
-            this.setState({
-                feedback: 'Errore nell\'invio del commento: ' + error.message
-            });
-        }
-    };
-    
-    handleInputChange = (e) => {
-        this.setState(prevState => ({
-            comment: {
-                ...prevState.comment,
-                comment: e.target.value
+            )
+            if (response.ok) {
+                this.setState({
+                    comment: {
+                        comment: '',
+                        rate: 1,
+                        elementId: this.props.asin,
+                    },
+                })
+                alert('Comment succefully submitted')
+            } else {
+                console.log('error')
             }
-        }));
-    };
+        } catch (error) {
+            console.log('error')
+        }
+    }
     
     render() {
         return (
-            <form onSubmit={this.handleSubmit} style={{ display: 'contents' }}>
-                <textarea
-                    value={this.state.comment.comment}
-                    onChange={this.handleInputChange}
-                    placeholder="Write your comment"
-                    rows="4"
-                    required
-                ></textarea>
-                <button type="submit" className='justify-content-center'>Invia Commento</button>
-                {this.state.feedback && <div>{this.state.feedback}</div>}
-            </form>
-        );
+            <div className="my-3">
+                <Form onSubmit={this.sendComment}>
+                    <Form.Group>
+                        <Form.Label>Rating</Form.Label>
+                        <Form.Control
+                            as="select"
+                            value={this.state.comment.rate}
+                            onChange={(e) =>
+                                this.setState({
+                                    comment: {
+                                        ...this.state.comment,
+                                        rate: e.target.value,
+                                    },
+                                })
+                            }
+                        >
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </Form.Control>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Comment text</Form.Label>
+                        <Form.Control
+                            type="text"
+                            placeholder="Add comment here"
+                            value={this.state.comment.comment}
+                            onChange={(e) =>
+                                this.setState({
+                                    comment: {
+                                        ...this.state.comment,
+                                        comment: e.target.value,
+                                    },
+                                })
+                            }
+                        />
+                    </Form.Group>
+                    <Button variant="primary" type="submit">
+                        Submit
+                    </Button>
+                </Form>
+            </div>
+        )
     }
 }
 

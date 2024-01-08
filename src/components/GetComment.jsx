@@ -1,34 +1,45 @@
 import React from "react";
 import axios from "axios";
-
+import { Spinner } from "react-bootstrap";
 
 class GetComment extends React.Component {
     state = {
-        comments: []
+        comments: [],
+        loading: false,
     };
 
+    componentDidUpdate(prevProps) {
+        if (prevProps.bookId !== this.props.bookId) {
+            this.fetchData(this.props.bookId)
+        }
+    }
+
+
     async fetchData(bookId) {
-        const tokenAPI = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTg0NWE4NWI1MjViYjAwMThlZDA4OTIiLCJpYXQiOjE3MDMxNzI3NDEsImV4cCI6MTcwNDM4MjM0MX0.MqyGj9rVA73xnyHt6rWKry33R2TRIinH6ycjbB6NUUE'
+        this.setState({loading: true})
+        const tokenAPI = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTliZmI0M2UwZGQxZDAwMTgyZDE3NWIiLCJpYXQiOjE3MDQ3MjEyMjAsImV4cCI6MTcwNTkzMDgyMH0.s5rqSKWOIz6A5AuFwCS3c0KwCT7UVpkD84qzWWQHjKk'
         try {
             const response = await axios.get(`https://striveschool-api.herokuapp.com/api/comments/${bookId}`, {
                 headers: {
                     "Authorization": `Bearer ${tokenAPI}`
                 }
             });
-            this.setState({ comments: response.data });
+            this.setState({ comments: response.data, loading: false});
         } catch (error) {
             console.error("Si è verificato un errore!", error);
         }
     }
-
     componentDidMount() {
         this.fetchData(this.props.bookId);
     }
-
     render() {
+        const { comments, loading } = this.state;
+        if (loading) {
+            return <Spinner></Spinner>
+        } 
         return (
-            <div className="">
-                {this.state.comments.map((comment, index) => (
+            <div>
+                {comments.map((comment, index) => (
                     <div key={index}>
                         <p>{comment.comment}</p>
                     </div>

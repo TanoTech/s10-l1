@@ -4,28 +4,30 @@ import GetComment from './GetComment'
 import PostComment from './PostComment';
 
 class SingleBook extends React.Component {
-    state = {
-        showModal: false
-    };
 
-    toggleModal = () => {
+   /*  state = {
+        showModal: false
+    }; */
+
+   /*  toggleModal = () => {
         this.setState({ showModal: !this.state.showModal });
     };
-
+ */
     render() {
-        const { book } = this.props;
-        const { showModal } = this.state;
+        const { book, onSelectBook } = this.props;
+        console.log('props', this.props);
+        /* const { showModal } = this.state; */
 
         return (
             <>
-                <Card style={{ width: '100%' }} onClick={this.toggleModal}>
+                <Card style={{ width: '100%' }} onClick={() => onSelectBook(book.asin)}>
                     <Card.Img variant="top" src={book.img} className="img-fluid" />
                     <ListGroup className="list-group-flush">
                         <ListGroup.Item>{book.category} - {book.price} €</ListGroup.Item>
                     </ListGroup>
                 </Card>
 
-                <Modal show={showModal} onHide={this.toggleModal}>
+                {/* <Modal show={showModal} onHide={this.toggleModal}>
                     <Modal.Header closeButton>
                         <Modal.Title>{book.title}</Modal.Title>
                     </Modal.Header>
@@ -38,11 +40,11 @@ class SingleBook extends React.Component {
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="success" href="#">
-                            Compra adesso
+                            Shop now
                         </Button>
                     </Modal.Footer>
                     <PostComment asin={book.asin} />
-                </Modal>
+                </Modal> */}
             </>
         );
     }

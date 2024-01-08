@@ -7,14 +7,23 @@ import scifi from '../data/scifi.json';
 import { Container, Row, Col, Card, ListGroup, Carousel } from "react-bootstrap";
 import './DisplayBooks.css';
 import SingleBook from "./SingleBook";
+import BookComments from "./BookComment";
 
 class DisplayBooks extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            activeBookId: null,
+        }
     };
+
+    setActiveBookId = (bookId) => {
+        this.setState({ activeBookId: bookId });
+    }
 
     render() {
         const { searchQuery } = this.props;
+        const { activeBookId } = this.state;
 
         const filteredFantasy = searchQuery ? fantasy.filter((libro) =>
             libro.title.toLowerCase().includes(searchQuery.toLowerCase())
@@ -36,251 +45,253 @@ class DisplayBooks extends React.Component {
         ) : romance;
 
         return (
-            <Container>
-                <h1>Fantasy</h1>
-                <Carousel>
-                    <Carousel.Item>
-                        <Row>
-                            {filteredFantasy.slice(0, 6).map((libro, index) => (
-                                <Col key={index} lg={2} md={3} xs={7} sm={5}>
-                                    <SingleBook book={libro} />
-                                </Col>
-                            ))}
-                        </Row>
-                    </Carousel.Item>
-                    <Carousel.Item>
-                        <Row>
-                            {filteredFantasy.slice(6, 12).map((libro, index) => (
-                                <Col key={index} md={2} xs={12} sm={6}>
-                                    <SingleBook book={libro} />
-                                </Col>
-                            ))}
-                        </Row>
-                    </Carousel.Item>
-                    <Carousel.Item>
-                        <Row>
-                            {filteredFantasy.slice(12, 18).map((libro, index) => (
-                                <Col key={index} md={2} xs={12} sm={6}>
-                                    <SingleBook book={libro} />
-                                </Col>
-                            ))}
-                        </Row>
-                    </Carousel.Item>
-                    <Carousel.Item>
-                        <Row>
-                            {filteredFantasy.slice(18, 24).map((libro, index) => (
-                                <Col key={index} md={2} xs={12} sm={6}>
-                                    <SingleBook book={libro} />
-                                </Col>
-                            ))}
-                        </Row>
-                    </Carousel.Item>
-                    <Carousel.Item>
-                        <Row>
-                            {filteredFantasy.slice(24, 30).map((libro, index) => (
-                                <Col key={index} md={2} xs={12} sm={6}>
-                                    <SingleBook book={libro} />
-                                </Col>
-                            ))}
-                        </Row>
-                    </Carousel.Item>
-                </Carousel>
-                <h1>History</h1>
-                <Carousel>
-                    <Carousel.Item>
-                        <Row>
-                            {filteredHistory.slice(0, 6).map((libro, index) => (
-                                <Col key={index} md={2} xs={12} sm={6}>
-                                    <SingleBook book={libro} />
-                                </Col>
-                            ))}
-                        </Row>
-                    </Carousel.Item>
-                    <Carousel.Item>
-                        <Row>
-                            {filteredHistory.slice(6, 12).map((libro, index) => (
-                                <Col key={index} md={2} xs={12} sm={6}>
-                                    <SingleBook book={libro} />
-                                </Col>
-                            ))}
-                        </Row>
-                    </Carousel.Item>
-                    <Carousel.Item>
-                        <Row>
-                            {history.slice(12, 18).map((libro, index) => (
-                                <Col key={index} md={2} xs={12} sm={6}>
-                                    <SingleBook book={libro} />
-                                </Col>
-                            ))}
-                        </Row>
-                    </Carousel.Item>
-                    <Carousel.Item>
-                        <Row>
-                            {filteredHistory.slice(18, 24).map((libro, index) => (
-                                <Col key={index} md={2} xs={12} sm={6}>
-                                    <SingleBook book={libro} />
-                                </Col>
-                            ))}
-                        </Row>
-                    </Carousel.Item>
-                    <Carousel.Item>
-                        <Row>
-                            {filteredHistory.slice(24, 30).map((libro, index) => (
-                                <Col key={index} md={2} xs={12} sm={6}>
-                                    <SingleBook book={libro} />
-                                </Col>
-                            ))}
-                        </Row>
-                    </Carousel.Item>
-                </Carousel>
-                <h1>Horror</h1>
-                <Carousel>
-                    <Carousel.Item>
-                        <Row>
-                            {filteredHorror.slice(0, 6).map((libro, index) => (
-                                <Col key={index} md={2} xs={12} sm={6}>
-                                    <SingleBook book={libro} />
-                                </Col>
-                            ))}
-                        </Row>
-                    </Carousel.Item>
-                    <Carousel.Item>
-                        <Row>
-                            {filteredHorror.slice(6, 12).map((libro, index) => (
-                                <Col key={index} md={2} xs={12} sm={6}>
-                                    <SingleBook book={libro} />
-                                </Col>
-                            ))}
-                        </Row>
-                    </Carousel.Item>
-                    <Carousel.Item>
-                        <Row>
-                            {filteredHorror.slice(12, 18).map((libro, index) => (
-                                <Col key={index} md={2} xs={12} sm={6}>
-                                    <SingleBook book={libro} />
-                                </Col>
-                            ))}
-                        </Row>
-                    </Carousel.Item>
-                    <Carousel.Item>
-                        <Row>
-                            {filteredHorror.slice(18, 24).map((libro, index) => (
-                                <Col key={index} md={2} xs={12} sm={6}>
-                                    <SingleBook book={libro} />
-                                </Col>
-                            ))}
-                        </Row>
-                    </Carousel.Item>
-                    <Carousel.Item>
-                        <Row>
-                            {filteredHorror.slice(24, 30).map((libro, index) => (
-                                <Col key={index} md={2} xs={12} sm={6}>
-                                    <SingleBook book={libro} />
-                                </Col>
-                            ))}
-                        </Row>
-                    </Carousel.Item>
-                </Carousel>
-                <h1>Romance</h1>
-                <Carousel>
-                    <Carousel.Item>
-                        <Row>
-                            {filteredRomance.slice(0, 6).map((libro, index) => (
-                                <Col key={index} md={2} xs={12} sm={6}>
-                                    <SingleBook book={libro} />
-                                </Col>
-                            ))}
-                        </Row>
-                    </Carousel.Item>
-                    <Carousel.Item>
-                        <Row>
-                            {filteredRomance.slice(6, 12).map((libro, index) => (
-                                <Col key={index} md={2} xs={12} sm={6}>
-                                    <SingleBook book={libro} />
-                                </Col>
-                            ))}
-                        </Row>
-                    </Carousel.Item>
-                    <Carousel.Item>
-                        <Row>
-                            {filteredRomance.slice(12, 18).map((libro, index) => (
-                                <Col key={index} md={2} xs={12} sm={6}>
-                                    <SingleBook book={libro} />
-                                </Col>
-                            ))}
-                        </Row>
-                    </Carousel.Item>
-                    <Carousel.Item>
-                        <Row>
-                            {filteredRomance.slice(18, 24).map((libro, index) => (
-                                <Col key={index} md={2} xs={12} sm={6}>
-                                    <SingleBook book={libro} />
-                                </Col>
-                            ))}
-                        </Row>
-                    </Carousel.Item>
-                    <Carousel.Item>
-                        <Row>
-                            {filteredRomance.slice(24, 30).map((libro, index) => (
-                                <Col key={index} md={2} xs={12} sm={6}>
-                                    <SingleBook book={libro} />
-                                </Col>
-                            ))}
-                        </Row>
-                    </Carousel.Item>
-                </Carousel>
-                <h1>Scifi</h1>
-                <Carousel>
-                    <Carousel.Item>
-                        <Row>
-                            {filteredScifi.slice(0, 6).map((libro, index) => (
-                                <Col key={index} md={2} xs={12} sm={6}>
-                                    <SingleBook book={libro} />
-                                </Col>
-                            ))}
-                        </Row>
-                    </Carousel.Item>
-                    <Carousel.Item>
-                        <Row>
-                            {filteredScifi.slice(6, 12).map((libro, index) => (
-                                <Col key={index} md={2} xs={12} sm={6}>
-                                    <SingleBook book={libro} />
-                                </Col>
-                            ))}
-                        </Row>
-                    </Carousel.Item>
-                    <Carousel.Item>
-                        <Row>
-                            {filteredScifi.slice(12, 18).map((libro, index) => (
-                                <Col key={index} md={2} xs={12} sm={6}>
-                                    <SingleBook book={libro} />
-                                </Col>
-                            ))}
-                        </Row>
-                    </Carousel.Item>
-                    <Carousel.Item>
-                        <Row>
-                            {filteredScifi.slice(18, 24).map((libro, index) => (
-                                <Col key={index} md={2} xs={12} sm={6}>
-                                    <SingleBook book={libro} />
-                                </Col>
-                            ))}
-                        </Row>
-                    </Carousel.Item>
-                    <Carousel.Item>
-                        <Row>
-                            {filteredScifi.slice(24, 30).map((libro, index) => (
-                                <Col key={index} md={2} xs={12} sm={6}>
-                                    <SingleBook book={libro} />
-                                </Col>
-                            ))}
-                        </Row>
-                    </Carousel.Item>
-                </Carousel>
-            </Container>
+            <main className="d-flex">
+                <Container>
+                    <h1>Fantasy</h1>
+                    <Carousel>
+                        <Carousel.Item>
+                            <Row>
+                                {filteredFantasy.slice(0, 5).map((libro, index) => (
+                                    <Col key={index}>
+                                        <SingleBook book={libro}  onSelectBook={this.setActiveBookId}  />
+                                    </Col>
+                                ))}
+                            </Row>
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <Row>
+                                {filteredFantasy.slice(5, 10).map((libro, index) => (
+                                    <Col key={index} >
+                                        <SingleBook book={libro}  onSelectBook={this.setActiveBookId} />
+                                    </Col>
+                                ))}
+                            </Row>
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <Row>
+                                {filteredFantasy.slice(10, 15).map((libro, index) => (
+                                    <Col key={index}>
+                                        <SingleBook book={libro}  onSelectBook={this.setActiveBookId} />
+                                    </Col>
+                                ))}
+                            </Row>
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <Row>
+                                {filteredFantasy.slice(15, 20).map((libro, index) => (
+                                    <Col key={index}>
+                                        <SingleBook book={libro}  onSelectBook={this.setActiveBookId} />
+                                    </Col>
+                                ))}
+                            </Row>
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <Row>
+                                {filteredFantasy.slice(20, 25).map((libro, index) => (
+                                    <Col key={index}>
+                                        <SingleBook book={libro}  onSelectBook={this.setActiveBookId} />
+                                    </Col>
+                                ))}
+                            </Row>
+                        </Carousel.Item>
+                    </Carousel>
+                    <h1>History</h1>
+                    <Carousel>
+                        <Carousel.Item>
+                            <Row>
+                                {filteredHistory.slice(0, 5).map((libro, index) => (
+                                    <Col key={index}>
+                                        <SingleBook book={libro}  onSelectBook={this.setActiveBookId} />
+                                    </Col>
+                                ))}
+                            </Row>
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <Row>
+                                {filteredHistory.slice(5, 10).map((libro, index) => (
+                                    <Col key={index}>
+                                        <SingleBook book={libro}  onSelectBook={this.setActiveBookId} />
+                                    </Col>
+                                ))}
+                            </Row>
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <Row>
+                                {history.slice(10, 15).map((libro, index) => (
+                                    <Col key={index}>
+                                        <SingleBook book={libro}  onSelectBook={this.setActiveBookId} />
+                                    </Col>
+                                ))}
+                            </Row>
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <Row>
+                                {filteredHistory.slice(15, 20).map((libro, index) => (
+                                    <Col key={index} >
+                                        <SingleBook book={libro}  onSelectBook={this.setActiveBookId} />
+                                    </Col>
+                                ))}
+                            </Row>
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <Row>
+                                {filteredHistory.slice(20, 25).map((libro, index) => (
+                                    <Col key={index}>
+                                        <SingleBook book={libro}  onSelectBook={this.setActiveBookId} />
+                                    </Col>
+                                ))}
+                            </Row>
+                        </Carousel.Item>
+                    </Carousel>
+                    <h1>Horror</h1>
+                    <Carousel>
+                        <Carousel.Item>
+                            <Row>
+                                {filteredHorror.slice(0, 5).map((libro, index) => (
+                                    <Col key={index} >
+                                        <SingleBook book={libro}  onSelectBook={this.setActiveBookId} />
+                                    </Col>
+                                ))}
+                            </Row>
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <Row>
+                                {filteredHorror.slice(5, 10).map((libro, index) => (
+                                    <Col key={index} >
+                                        <SingleBook book={libro}  onSelectBook={this.setActiveBookId} />
+                                    </Col>
+                                ))}
+                            </Row>
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <Row>
+                                {filteredHorror.slice(10, 15).map((libro, index) => (
+                                    <Col key={index} >
+                                        <SingleBook book={libro}  onSelectBook={this.setActiveBookId} />
+                                    </Col>
+                                ))}
+                            </Row>
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <Row>
+                                {filteredHorror.slice(15, 20).map((libro, index) => (
+                                    <Col key={index} >
+                                        <SingleBook book={libro}  onSelectBook={this.setActiveBookId} />
+                                    </Col>
+                                ))}
+                            </Row>
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <Row>
+                                {filteredHorror.slice(20, 25).map((libro, index) => (
+                                    <Col key={index} >
+                                        <SingleBook book={libro}  onSelectBook={this.setActiveBookId} />
+                                    </Col>
+                                ))}
+                            </Row>
+                        </Carousel.Item>
+                    </Carousel>
+                    <h1>Romance</h1>
+                    <Carousel>
+                        <Carousel.Item>
+                            <Row>
+                                {filteredRomance.slice(0, 5).map((libro, index) => (
+                                    <Col key={index} >
+                                        <SingleBook book={libro}  onSelectBook={this.setActiveBookId} />
+                                    </Col>
+                                ))}
+                            </Row>
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <Row>
+                                {filteredRomance.slice(5, 10).map((libro, index) => (
+                                    <Col key={index} >
+                                        <SingleBook book={libro}  onSelectBook={this.setActiveBookId} />
+                                    </Col>
+                                ))}
+                            </Row>
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <Row>
+                                {filteredRomance.slice(10, 15).map((libro, index) => (
+                                    <Col key={index} >
+                                        <SingleBook book={libro}  onSelectBook={this.setActiveBookId} />
+                                    </Col>
+                                ))}
+                            </Row>
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <Row>
+                                {filteredRomance.slice(15, 20).map((libro, index) => (
+                                    <Col key={index} >
+                                        <SingleBook book={libro}  onSelectBook={this.setActiveBookId} />
+                                    </Col>
+                                ))}
+                            </Row>
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <Row>
+                                {filteredRomance.slice(20, 25).map((libro, index) => (
+                                    <Col key={index} >
+                                        <SingleBook book={libro}  onSelectBook={this.setActiveBookId} />
+                                    </Col>
+                                ))}
+                            </Row>
+                        </Carousel.Item>
+                    </Carousel>
+                    <h1>Scifi</h1>
+                    <Carousel>
+                        <Carousel.Item>
+                            <Row>
+                                {filteredScifi.slice(0, 5).map((libro, index) => (
+                                    <Col key={index} >
+                                        <SingleBook book={libro}  onSelectBook={this.setActiveBookId} />
+                                    </Col>
+                                ))}
+                            </Row>
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <Row>
+                                {filteredScifi.slice(5, 10).map((libro, index) => (
+                                    <Col key={index} >
+                                        <SingleBook book={libro}  onSelectBook={this.setActiveBookId} />
+                                    </Col>
+                                ))}
+                            </Row>
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <Row>
+                                {filteredScifi.slice(10, 15).map((libro, index) => (
+                                    <Col key={index} >
+                                        <SingleBook book={libro}  onSelectBook={this.setActiveBookId} />
+                                    </Col>
+                                ))}
+                            </Row>
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <Row>
+                                {filteredScifi.slice(15, 20).map((libro, index) => (
+                                    <Col key={index} >
+                                        <SingleBook book={libro}  onSelectBook={this.setActiveBookId} />
+                                    </Col>
+                                ))}
+                            </Row>
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <Row>
+                                {filteredScifi.slice(20, 25).map((libro, index) => (
+                                    <Col key={index} >
+                                        <SingleBook book={libro}  onSelectBook={this.setActiveBookId} />
+                                    </Col>
+                                ))}
+                            </Row>
+                        </Carousel.Item>
+                    </Carousel>
+                </Container>
+                <BookComments bookId={activeBookId} />
+            </main>
         );
     }
 }
-
 
 export default DisplayBooks; 

@@ -1,59 +1,58 @@
 import React, { Component } from 'react';
 import fantasy from '../data/fantasy.json';
-import { Container, Row, Col, Card, ListGroup, Form} from 'react-bootstrap';
+import { Container, Row, Col, Card, ListGroup, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './DisplayBooks.css';
+import SingleBook from './SingleBook';
+import BookComments from './BookComment';
 
 class FantasyBook extends Component {
     constructor(props){
         super(props);
         this.state = {
-            displayCount: 20
+            displayCount: 20,
+            activeBookId: null,
         }
     }
     handleChange = (e) => {
         this.setState({displayCount: e.target.value})
     }
 
+    setActiveBookId = (bookId) => {
+        this.setState({ activeBookId: bookId });
+    }
     render() {
-        const {displayCount} = this.state;
+        const {displayCount, activeBookId} = this.state;
         const displayedBooks = fantasy.slice(0, displayCount)
         const {searchQuery} = this.props;
         const filteredFantasy = searchQuery ? displayedBooks.filter((libro) =>
             libro.title.toLowerCase().includes(searchQuery.toLowerCase())) : displayedBooks;
-
+            
         return (
-            <Container fluid>
-                <h1 as={Link} to='/fantasy'>Fantasy</h1>
-
-                <Form>
-                    <Form.Group>
-                        <Form.Label>Numero di libri da visualizzare</Form.Label>
-                        <Form.Control as="select" value={displayCount} onChange={this.handleChange}>
-                            <option value="20">20</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>   
-                        </Form.Control>
-                    </Form.Group>
-                </Form>
-
-                <Row>
-                    {filteredFantasy.map((libro, index) => (
-                        <Col key={index} lg={2} md={3} xs={7} sm={5}>
-                            <Card style={{ width: '100%' }}>
-                                <Card.Img variant="top" src={libro.img} className="img-fluid" />
-                                <Card.Body>
-                                    <Card.Title>{libro.title}</Card.Title>
-                                </Card.Body>
-                                <ListGroup className="list-group-flush">
-                                    <ListGroup.Item>{libro.category} - {libro.price} €</ListGroup.Item>
-                                    <ListGroup.Item><a href="#">Compra adesso</a></ListGroup.Item>
-                                </ListGroup>
-                            </Card>
-                        </Col>
-                    ))}
-                </Row>
-            </Container>
+            <main className='d-flex'>
+                <Container>
+                    <h1 as={Link} to='/Fantasy'>Fantasy</h1>
+                    <Form>
+                        <Form.Group>
+                            <Form.Label>Numero di libri da visualizzare</Form.Label>
+                            <Form.Control className='displayBook' as="select" value={displayCount} onChange={this.handleChange}>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>  
+                                <option value="200">200</option>  
+                            </Form.Control>
+                        </Form.Group>
+                    </Form>
+                    <Row>
+                        {filteredFantasy.map((libro, index) => (
+                            <Col key={index} >
+                                <SingleBook book={libro} onSelectBook={this.setActiveBookId} />
+                            </Col>
+                        ))}
+                    </Row>
+                </Container>
+                <BookComments bookId={activeBookId} />
+            </main>
         );
     }
 }

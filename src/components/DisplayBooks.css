@@ -12,11 +12,21 @@ h1 {
 
 .card {
     border: 2px solid #800000;
-    width: auto;
-
+    width: 12rem!important;
+    margin: 0.5rem 1rem;
     img {
-        height: 40vh;
+        height: 30vh;
     }
+}
+
+main {
+    margin: 1rem;
+}
+
+.col {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .card-body,
@@ -40,18 +50,21 @@ a {
     opacity: 80%
 }
 
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-    background-color: black;
+.carousel-control-next,
+.carousel-control-prev {
+    display: none;
 }
 
-@media screen and (min-width: 650) {
-    .carousel-control-prev {
-        left: -8rem;
-    }
+.displayBook{
+    width:4rem;
+}
 
-    .carousel-control-next {
-        right: -8rem;
+img {
+    object-fit: contain;
+}
 
-    }
+aside > div {
+    position: sticky!important;
+    top: 0
+    
 }
