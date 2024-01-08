@@ -15,7 +15,6 @@ class SingleBook extends React.Component {
  */
     render() {
         const { book, onSelectBook } = this.props;
-        console.log('props', this.props);
         /* const { showModal } = this.state; */
 
         return (
