@@ -14,7 +14,6 @@ class GetComment extends React.Component {
         }
     }
 
-
     async fetchData(bookId) {
         this.setState({loading: true})
         const tokenAPI = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTliZmI0M2UwZGQxZDAwMTgyZDE3NWIiLCJpYXQiOjE3MDQ3MjEyMjAsImV4cCI6MTcwNTkzMDgyMH0.s5rqSKWOIz6A5AuFwCS3c0KwCT7UVpkD84qzWWQHjKk'
@@ -41,9 +40,11 @@ class GetComment extends React.Component {
             <div>
                 {comments.map((comment, index) => (
                     <div key={index}>
+                        <p>{"⭐️".repeat(comment.rate)}</p>
                         <p>{comment.comment}</p>
                     </div>
                 ))}
+                <hr />
             </div>
         );
     }

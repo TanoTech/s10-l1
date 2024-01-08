@@ -1,7 +1,5 @@
 import React from 'react';
 import { Modal, Button, Card, ListGroup, ListGroupItem } from 'react-bootstrap';
-import GetComment from './GetComment'
-import PostComment from './PostComment';
 
 class SingleBook extends React.Component {
 

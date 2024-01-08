@@ -4,7 +4,7 @@ import history from '../data/history.json';
 import horror from '../data/horror.json';
 import romance from '../data/romance.json';
 import scifi from '../data/scifi.json';
-import { Container, Row, Col, Card, ListGroup, Carousel } from "react-bootstrap";
+import { Container, Row, Col, Carousel } from "react-bootstrap";
 import './DisplayBooks.css';
 import SingleBook from "./SingleBook";
 import BookComments from "./BookComment";

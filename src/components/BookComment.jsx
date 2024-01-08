@@ -1,7 +1,7 @@
 import React from 'react';
 import GetComment from './GetComment';
 import PostComment from './PostComment';
-import { Card, Container } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 
 class BookComments extends React.Component {
     componentDidUpdate(prevProps) {

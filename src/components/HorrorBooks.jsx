@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import horror from '../data/horror.json';
-import { Container, Row, Col, Card, ListGroup, Form } from 'react-bootstrap';
+import { Container, Row, Col, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './DisplayBooks.css';
 import SingleBook from './SingleBook';
